@@ -1,3 +1,4 @@
+
 services:
   app:
     build:
@@ -8,10 +9,15 @@ services:
       - 8080:8080
       - 5050:5050
     tty: true
-    volumes:
-      - ./:/app
+    # volumes:
+    #   - ./:/app
     depends_on:
       - db
+    # 追記　”application-prod.properties”の本番プロファイルを有効化する
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod  
+    networks:
+      - app-network
 
   db:
     image: postgres:13.1
@@ -22,3 +28,14 @@ services:
       POSTGRES_DB: "dev"
     ports:
       - "5432:5432"
+#     # 追記　コンテナ内PostgreSQLがデータベースのファイルを保存するたびに、そのデータが postgres_data ボリュームを通じて永続化
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
