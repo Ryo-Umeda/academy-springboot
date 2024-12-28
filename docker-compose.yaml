@@ -16,6 +16,7 @@ services:
     # 追記　”application-prod.properties”の本番プロファイルを有効化する
     environment:
       - SPRING_PROFILES_ACTIVE=prod  
+      - DATABASE_URL=jdbc:postgresql://db:5432/dev
     networks:
       - app-network
 
