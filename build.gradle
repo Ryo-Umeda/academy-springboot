@@ -2,6 +2,14 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.4'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.flywaydb.flyway' version '9.22.3'
+}
+
+flyway {
+    url ='jdbc:postgresql://localhost:5432/dev'
+    user = 'postgres'
+    password = 'postgres'
+    locations = ['classpath:db/migration']
 }
 
 group = 'com.spring'
